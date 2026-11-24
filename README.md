@@ -89,7 +89,11 @@ Lucas–Kanade sparse optical flow and geometric motion estimation propagate det
 
 ### Android Video Detection Demo
 
-![Android YOLO26n Video Detection](assets/demos/video-detection.gif)
+<p align="center">
+  <img src="assets/demos/video-detection.gif"
+       alt="Android YOLO26n Video Detection"
+       width="260">
+</p>
 
 *Android emulator demonstration of restoration-enhanced YOLO26n detection and optical-flow-assisted tracking.*
 
@@ -112,16 +116,24 @@ Lucas–Kanade sparse optical flow and geometric motion estimation propagate det
 
 Pretrained model weights are hosted separately to keep the source repository lightweight.
 
-### Download Model Weights
+### Download Pretrained Models
 
-| Model | Filename | Download | Destination |
-|---|---|---|---|
-| Diffusion Teacher | `best.pt` | Coming soon | `training/outputs/teacher/best.pt` |
-| Lightweight Student | `best.pt` | Coming soon | `training/outputs/student/best.pt` |
-| Android Restoration | `student_256.onnx` | Coming soon | `android/app/src/main/assets/student_256.onnx` |
-| YOLO26n Detector | `yolo26n.onnx` | Coming soon | `android/app/src/main/assets/yolo26n.onnx` |
+The pretrained teacher, lightweight student, and Android deployment models are available from Baidu Netdisk.
 
-Download the model files and place them at the corresponding paths. Create the directories if necessary. Keep the filenames unchanged.
+**[Download WeatherEdgeMobile_Models.zip — Baidu Netdisk](https://pan.baidu.com/s/1HYPnyUDvzUD_Gz3fpJXVYQ?pwd=iiws)**
+
+**Extraction Code: `iiws`**
+
+| Model | Downloaded File | Destination |
+|---|---|---|
+| Diffusion Teacher | `teacher_best.pt` | `training/outputs/teacher/best.pt` |
+| Lightweight Student | `student_best.pt` | `training/outputs/student/best.pt` |
+| Android Restoration | `student_256.onnx` | `android/app/src/main/assets/student_256.onnx` |
+| YOLO26n Detector | `yolo26n.onnx` | `android/app/src/main/assets/yolo26n.onnx` |
+
+Rename `teacher_best.pt` and `student_best.pt` to `best.pt` after placing them in their respective directories. Create missing directories if necessary.
+
+Model files are loaded locally and are not downloaded automatically.
 
 ### PyTorch Setup
 
@@ -154,6 +166,38 @@ python -m weatherdiff infer \
 ```
 
 CUDA inference can be enabled with a compatible PyTorch/CUDA environment.
+
+### CDD-11 Dataset
+
+The restoration models are trained and evaluated on **CDD-11 (Composite Degradation Dataset)**, introduced in [OneRestore (ECCV 2024)](https://github.com/gy65896/OneRestore).
+
+**[Download CDD-11 Dataset — Hugging Face](https://huggingface.co/datasets/gy65896/CDD-11)**
+
+CDD-11 includes 11 degradation categories covering haze, rain, snow, low-light conditions, and their combinations.
+
+Download and extract the dataset into the following structure:
+
+```text
+CDD-11/
+├── train/
+│   ├── clear/
+│   ├── haze/
+│   ├── rain/
+│   ├── snow/
+│   ├── low/
+│   └── ... (composite degradations)
+└── test/
+    ├── clear/
+    ├── haze/
+    ├── rain/
+    ├── snow/
+    ├── low/
+    └── ... (composite degradations)
+```
+
+For pretrained model evaluation, only the `test/` directory is required. Training from scratch additionally requires the `splits/train.txt` and `splits/val.txt` files used by this project's dataset loader.
+
+The dataset is not redistributed in this repository.
 
 ### CDD-11 Evaluation
 
