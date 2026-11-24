@@ -1,0 +1,17 @@
+
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+outputs/
+data/
+datasets/
+checkpoints/
+runs/
+*.pyc
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.log
+.DS_Store

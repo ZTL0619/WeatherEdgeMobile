@@ -1,0 +1,20 @@
+.gradle/
+.idea/
+.kotlin/
+**/build/
+**/.cxx/
+local.properties
+*.iml
+*.bak
+*.log
+*.keystore
+*.jks
+.venv/
+__pycache__/
+outputs/
+data/
+datasets/
+# Pretrained model weights
+*.pt
+*.pth
+*.onnx
